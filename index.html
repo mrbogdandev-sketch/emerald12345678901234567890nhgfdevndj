@@ -3,151 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Монета</title>
+    <title>Вращающаяся монета</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
+        @font-face {
+            font-family: 'MainFont';
+            src: url('font.otf') format('opentype');
+            font-weight: bold;
+            font-style: normal;
+        }
+
         body {
             margin: 0;
             padding: 0;
-            background: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
-        #container {
-            width: 100vw;
             height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #8F3133, #390F10);
+            overflow: hidden;
         }
-        #info {
+
+        body::before {
+            content: '';
             position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 14px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vmin;
+            height: 80vmin;
+            background: radial-gradient(circle, rgba(197, 97, 97, 0.15) 0%, rgba(197, 97, 97, 0) 70%);
+            border-radius: 50%;
         }
-        canvas {
-            display: block;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+
+        model-viewer {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 0 25px #C56161);
+        }
+
+        .text {
+            font-family: 'MainFont', sans-serif;
+            font-weight: bold;
+            font-size: 4rem;
+            color: #FFA6A6;
+            margin-top: 20px;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            model-viewer {
+                width: 200px;
+                height: 200px;
+            }
+            .text {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            model-viewer {
+                width: 150px;
+                height: 150px;
+            }
+            .text {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="container">
-        <div id="info">
-            Перетаскивайте мышью для вращения монеты<br>
-            Колесико мыши для приближения/отдаления
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-
-    <script>
-        // Сцена
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xffffff);
-
-        // Камера
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 5;
-
-        // Рендерер
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        document.getElementById('container').appendChild(renderer.domElement);
-
-        // Освещение
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-        scene.add(ambientLight);
-
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        directionalLight.position.set(10, 10, 5);
-        scene.add(directionalLight);
-
-        // Загрузка модели
-        const loader = new THREE.GLTFLoader();
-        let coin;
-
-        loader.load(
-            'coin.glb', // путь к вашей модели
-            function (gltf) {
-                coin = gltf.scene;
-                scene.add(coin);
-                
-                // Центрирование модели
-                const box = new THREE.Box3().setFromObject(coin);
-                const center = box.getCenter(new THREE.Vector3());
-                coin.position.sub(center);
-                
-                // Автоматическое вращение
-                function animateRotation() {
-                    if (coin) {
-                        coin.rotation.y += 0.01;
-                    }
-                    requestAnimationFrame(animateRotation);
-                }
-                animateRotation();
-            },
-            function (xhr) {
-                console.log((xhr.loaded / xhr.total * 100) + '% загружено');
-            },
-            function (error) {
-                console.error('Ошибка загрузки модели:', error);
-                // Создаем простую монету если модель не загрузилась
-                createFallbackCoin();
-            }
-        );
-
-        // Создание простой монеты если основная модель не загрузилась
-        function createFallbackCoin() {
-            const geometry = new THREE.CylinderGeometry(2, 2, 0.3, 32);
-            const material = new THREE.MeshStandardMaterial({ 
-                color: 0xdaa520,
-                metalness: 0.8,
-                roughness: 0.2
-            });
-            coin = new THREE.Mesh(geometry, material);
-            scene.add(coin);
-            
-            function animateRotation() {
-                coin.rotation.y += 0.01;
-                requestAnimationFrame(animateRotation);
-            }
-            animateRotation();
-        }
-
-        // OrbitControls для интерактивного вращения
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.05;
-        controls.autoRotate = false;
-        controls.enableZoom = true;
-        controls.enablePan = false;
-
-        // Обработка изменения размера окна
-        window.addEventListener('resize', onWindowResize, false);
-
-        function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
-
-        // Анимация
-        function animate() {
-            requestAnimationFrame(animate);
-            controls.update();
-            renderer.render(scene, camera);
-        }
-
-        animate();
-    </script>
+    <model-viewer 
+        src="coin.glb" 
+        alt="Вращающаяся монета"
+        auto-rotate 
+        camera-controls
+        rotation-per-second="30deg">
+    </model-viewer>
+    <div class="text">1000$</div>
 </body>
 </html>
