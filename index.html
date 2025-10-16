@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вращающаяся монета</title>
+    <title>Emerald</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
         @font-face {
@@ -19,16 +19,17 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             background: linear-gradient(to bottom, #8F3133, #390F10);
             overflow: hidden;
+            padding-top: 5vh;
         }
 
         body::before {
             content: '';
             position: absolute;
-            top: 50%;
+            top: 30%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 80vmin;
@@ -38,8 +39,8 @@
         }
 
         model-viewer {
-            width: 300px;
-            height: 300px;
+            width: 400px;
+            height: 400px;
             position: relative;
             z-index: 1;
             filter: drop-shadow(0 0 25px #C56161);
@@ -50,14 +51,14 @@
             font-weight: bold;
             font-size: 4rem;
             color: #FFA6A6;
-            margin-top: 20px;
+            margin-top: 10px;
             z-index: 1;
         }
 
         @media (max-width: 768px) {
             model-viewer {
-                width: 200px;
-                height: 200px;
+                width: 300px;
+                height: 300px;
             }
             .text {
                 font-size: 3rem;
@@ -66,11 +67,11 @@
 
         @media (max-width: 480px) {
             model-viewer {
-                width: 150px;
-                height: 150px;
+                width: 250px;
+                height: 250px;
             }
             .text {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
         }
     </style>
@@ -80,7 +81,6 @@
         src="coin.glb" 
         alt="Вращающаяся монета"
         auto-rotate 
-        camera-controls
         rotation-per-second="30deg">
     </model-viewer>
     <div class="text">1000$</div>
