@@ -24,7 +24,7 @@
             background: linear-gradient(to bottom, #8F3133, #390F10);
             overflow: hidden;
             font-family: 'MainFont', sans-serif;
-            padding-top: 2vh;
+            padding-top: 3vh;
         }
 
         .main-content {
@@ -38,22 +38,22 @@
         body::before {
             content: '';
             position: absolute;
-            top: 20%;
+            top: 25%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80vmin;
-            height: 80vmin;
+            width: 90vmin;
+            height: 90vmin;
             background: radial-gradient(circle, rgba(197, 97, 97, 0.15) 0%, rgba(197, 97, 97, 0) 70%);
             border-radius: 50%;
         }
 
         model-viewer {
-            width: 300px;
-            height: 300px;
+            width: 350px;
+            height: 350px;
             position: relative;
             z-index: 1;
             filter: drop-shadow(0 0 25px #C56161);
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
         .text-container {
@@ -65,15 +65,15 @@
 
         .amount {
             font-weight: bold;
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: #FFA6A6;
             text-shadow: 0 0 10px rgba(197, 97, 97, 0.35);
-            margin-bottom: 2px;
+            margin-bottom: 5px;
         }
 
         .per-click {
             font-weight: 600;
-            font-size: 1.4rem;
+            font-size: 1.8rem;
             color: #FFA6A6;
             text-shadow: 0 0 10px rgba(197, 97, 97, 0.35);
         }
@@ -82,16 +82,16 @@
             width: 100%;
             display: flex;
             justify-content: center;
-            padding: 5px 2px;
+            padding: 8px 4px;
             background: transparent;
             box-sizing: border-box;
-            gap: 6px;
-            margin-top: 8px;
+            gap: 10px;
+            margin-top: 15px;
         }
 
         .button {
-            height: 60px;
-            width: 80px;
+            height: 75px;
+            width: 100px;
             background: #B4383D;
             border-radius: 14px;
             box-shadow: 
@@ -102,7 +102,7 @@
             justify-content: center;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
-            margin: 0 2px;
+            margin: 0 3px;
         }
 
         .button:hover {
@@ -120,15 +120,61 @@
         }
 
         .button-icon {
-            height: 50%;
+            height: 65%;
             width: auto;
-            filter: brightness(0) saturate(100%) invert(85%) sepia(15%) saturate(750%) hue-rotate(315deg) brightness(105%) contrast(105%);
         }
 
         @media (max-width: 768px) {
             body {
+                padding-top: 2vh;
+            }
+            model-viewer {
+                width: 320px;
+                height: 320px;
+            }
+            .amount {
+                font-size: 3.2rem;
+            }
+            .per-click {
+                font-size: 1.6rem;
+            }
+            .button {
+                height: 70px;
+                width: 90px;
+            }
+            .button-panel {
+                gap: 8px;
+                padding: 6px 3px;
+                margin-top: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
                 padding-top: 1vh;
             }
+            model-viewer {
+                width: 280px;
+                height: 280px;
+            }
+            .amount {
+                font-size: 2.8rem;
+            }
+            .per-click {
+                font-size: 1.4rem;
+            }
+            .button {
+                height: 65px;
+                width: 80px;
+            }
+            .button-panel {
+                gap: 6px;
+                padding: 5px 2px;
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
             model-viewer {
                 width: 250px;
                 height: 250px;
@@ -137,39 +183,11 @@
                 font-size: 2.5rem;
             }
             .per-click {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
             }
             .button {
-                height: 50px;
-                width: 70px;
-            }
-            .button-panel {
-                gap: 5px;
-                padding: 4px 2px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding-top: 0.5vh;
-            }
-            model-viewer {
-                width: 200px;
-                height: 200px;
-            }
-            .amount {
-                font-size: 2rem;
-            }
-            .per-click {
-                font-size: 1rem;
-            }
-            .button {
-                height: 45px;
-                width: 60px;
-            }
-            .button-panel {
-                gap: 4px;
-                padding: 3px 1px;
+                height: 60px;
+                width: 75px;
             }
         }
     </style>
@@ -189,13 +207,13 @@
         
         <div class="button-panel">
             <div class="button">
-                <div class="button-icon">1</div>
+                <img src="main1button.jpg" class="button-icon">
             </div>
             <div class="button">
-                <div class="button-icon">2</div>
+                <img src="main2button.jpg" class="button-icon">
             </div>
             <div class="button">
-                <div class="button-icon">3</div>
+                <img src="main3button.jpg" class="button-icon">
             </div>
         </div>
     </div>
