@@ -9,8 +9,21 @@
         @font-face {
             font-family: 'MainFont';
             src: url('font.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'MainFont';
+            src: url('font.otf') format('opentype');
             font-weight: bold;
             font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
@@ -19,12 +32,56 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: space-between;
             align-items: center;
             background: linear-gradient(to bottom, #8F3133, #390F10);
             overflow: hidden;
             font-family: 'MainFont', sans-serif;
-            padding-top: 3vh;
+            padding: 10px 0;
+        }
+
+        .header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 8px 15px;
+            z-index: 10;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 12px;
+            border: 2px solid #FFA6A6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-family: 'MainFont', sans-serif;
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: #FFA6A6;
+            text-shadow: 0 0 8px rgba(197, 97, 97, 0.4);
         }
 
         .main-content {
@@ -33,18 +90,21 @@
             align-items: center;
             width: 100%;
             position: relative;
+            flex: 1;
+            justify-content: center;
         }
 
         body::before {
             content: '';
             position: absolute;
-            top: 25%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 90vmin;
             height: 90vmin;
             background: radial-gradient(circle, rgba(197, 97, 97, 0.15) 0%, rgba(197, 97, 97, 0) 70%);
             border-radius: 50%;
+            z-index: 0;
         }
 
         model-viewer {
@@ -53,7 +113,7 @@
             position: relative;
             z-index: 1;
             filter: drop-shadow(0 0 25px #C56161);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .text-container {
@@ -61,6 +121,7 @@
             flex-direction: column;
             align-items: center;
             z-index: 1;
+            margin-bottom: 10px;
         }
 
         .amount {
@@ -87,6 +148,7 @@
             box-sizing: border-box;
             gap: 10px;
             margin-top: 15px;
+            z-index: 1;
         }
 
         .button {
@@ -124,10 +186,75 @@
             width: auto;
         }
 
+        .news-container {
+            width: 90%;
+            max-width: 400px;
+            margin: 10px auto 15px;
+            z-index: 1;
+        }
+
+        .news-card {
+            background: #B4383D;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 
+                inset 0 0 12px rgba(255, 166, 166, 0.2),
+                0 6px 20px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: block;
+        }
+
+        .news-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                inset 0 0 12px rgba(255, 166, 166, 0.3),
+                0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .news-card:active {
+            transform: translateY(1px);
+            box-shadow: 
+                inset 0 0 12px rgba(255, 166, 166, 0.15),
+                0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .news-placeholder {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, #8F3133, #B4383D);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFA6A6;
+            font-family: 'MainFont', sans-serif;
+            font-size: 1rem;
+            text-shadow: 0 0 8px rgba(197, 97, 97, 0.4);
+        }
+
         @media (max-width: 768px) {
-            body {
-                padding-top: 2vh;
+            .header {
+                padding: 6px 12px;
             }
+            
+            .user-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            .user-name {
+                font-size: 1.2rem;
+            }
+            
             model-viewer {
                 width: 320px;
                 height: 320px;
@@ -147,12 +274,27 @@
                 padding: 6px 3px;
                 margin-top: 12px;
             }
+            
+            .news-container {
+                margin: 8px auto 12px;
+            }
         }
 
         @media (max-width: 480px) {
-            body {
-                padding-top: 1vh;
+            .header {
+                padding: 5px 10px;
             }
+            
+            .user-avatar {
+                width: 38px;
+                height: 38px;
+                font-size: 15px;
+            }
+            
+            .user-name {
+                font-size: 1.1rem;
+            }
+            
             model-viewer {
                 width: 280px;
                 height: 280px;
@@ -171,6 +313,14 @@
                 gap: 6px;
                 padding: 5px 2px;
                 margin-top: 10px;
+            }
+            
+            .news-container {
+                margin: 6px auto 10px;
+            }
+            
+            .news-image, .news-placeholder {
+                height: 100px;
             }
         }
 
@@ -193,6 +343,17 @@
     </style>
 </head>
 <body>
+    <!-- Шапка с пользователем -->
+    <div class="header">
+        <div class="user-avatar">
+            <img id="userAvatar" src="" alt="Аватар" onerror="this.style.display='none';">
+        </div>
+        <div class="user-info">
+            <div class="user-name" id="userName">Пользователь</div>
+        </div>
+    </div>
+
+    <!-- Основной контент -->
     <div class="main-content">
         <model-viewer 
             src="coin.glb" 
@@ -217,5 +378,52 @@
             </div>
         </div>
     </div>
+
+    <!-- Новостной блок -->
+    <div class="news-container">
+        <a href="https://example.com" class="news-card" target="_blank">
+            <img src="news.jpg" class="news-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="news-placeholder" style="display: none;">Новости</div>
+        </a>
+    </div>
+
+    <script>
+        // Telegram Web App integration
+        if (window.Telegram && Telegram.WebApp) {
+            const tg = Telegram.WebApp;
+            
+            // Получаем данные пользователя из Telegram
+            const user = tg.initDataUnsafe?.user;
+            
+            if (user) {
+                // Устанавливаем имя пользователя
+                const userNameElement = document.getElementById('userName');
+                if (user.first_name || user.last_name) {
+                    const firstName = user.first_name || '';
+                    const lastName = user.last_name || '';
+                    userNameElement.textContent = `${firstName} ${lastName}`.trim();
+                } else if (user.username) {
+                    userNameElement.textContent = `@${user.username}`;
+                }
+                
+                // Устанавливаем аватарку
+                const userAvatarElement = document.getElementById('userAvatar');
+                if (user.photo_url) {
+                    userAvatarElement.src = user.photo_url;
+                } else {
+                    // Если аватарки нет, показываем первую букву имени
+                    const avatarContainer = userAvatarElement.parentElement;
+                    const firstName = user.first_name || 'U';
+                    avatarContainer.innerHTML = firstName.charAt(0).toUpperCase();
+                    avatarContainer.style.display = 'flex';
+                    avatarContainer.style.alignItems = 'center';
+                    avatarContainer.style.justifyContent = 'center';
+                }
+            }
+            
+            // Расширяем Web App на весь экран
+            tg.expand();
+        }
+    </script>
 </body>
 </html>
